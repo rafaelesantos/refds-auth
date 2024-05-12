@@ -2,12 +2,14 @@ import SwiftUI
 import RefdsShared
 
 public struct RefdsRequestBiometryViewModifier: ViewModifier {
-    @AppStorage("allowAuth") private var allowAuth: Bool = false
-    @Binding private var authenticated: Bool
+    @Binding private var isAuthenticated: Bool
     private var isAutomaticRequest: Bool
     
-    public init(authenticated: Binding<Bool>, isAutomaticRequest: Bool) {
-        self._authenticated = authenticated
+    public init(
+        isAuthenticated: Binding<Bool>,
+        isAutomaticRequest: Bool
+    ) {
+        self._isAuthenticated = isAuthenticated
         self.isAutomaticRequest = isAutomaticRequest
     }
     
@@ -22,9 +24,9 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
     
     private var requestBiometryView: some View {
         ZStack {
-            if !authenticated, allowAuth {
+            if !isAuthenticated {
                 RefdsRequestBiometryView(
-                    isAuthenticated: $authenticated,
+                    isAuthenticated: $isAuthenticated,
                     applicationIcon: RefdsAsset.applicationIcon.image,
                     isAutomaticRequest: isAutomaticRequest
                 )
@@ -33,7 +35,7 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
         }
         .animation(
             .spring(),
-            value: authenticated
+            value: isAuthenticated
         )
     }
 }
