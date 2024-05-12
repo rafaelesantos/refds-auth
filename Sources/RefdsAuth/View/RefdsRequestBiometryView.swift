@@ -69,8 +69,7 @@ public struct RefdsRequestBiometryView: View {
                     authenticate()
                 }
             }
-        default:
-            isAuthenticated = false
+        default: break
         }
     }
     
