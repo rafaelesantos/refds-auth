@@ -2,13 +2,13 @@ import SwiftUI
 
 public extension View {
     func refdsAuth(
-        autheticated: Binding<Bool>,
+        isAuthenticated: Binding<Bool>,
         applicationIcon: Image,
         isAutomaticRequest: Bool = true
     ) -> some View {
         self.modifier(
             RefdsRequestBiometryViewModifier(
-                isAuthenticated: autheticated,
+                isAuthenticated: isAuthenticated,
                 applicationIcon: applicationIcon,
                 isAutomaticRequest: isAutomaticRequest
             )
