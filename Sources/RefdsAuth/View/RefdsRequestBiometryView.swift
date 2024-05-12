@@ -22,14 +22,18 @@ public struct RefdsRequestBiometryView: View {
     }
     
     public var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: 50) {
             Spacer()
             
             authIcon.padding()
             
-            RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title2, weight: .bold)
+            VStack(spacing: .padding(.small)) {
+                RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title, weight: .bold, design: .rounded)
+                
+                RefdsText(.refdsLocalizable(by: .lockScreenDescription), color: .secondary, alignment: .center)
+            }
+            .padding(.horizontal, .padding(.extraLarge))
             
-            RefdsText(.refdsLocalizable(by: .lockScreenDescription), alignment: .center)
             Spacer()
             
             RefdsButton(
@@ -44,7 +48,7 @@ public struct RefdsRequestBiometryView: View {
             .padding()
         }
         .frame(maxWidth: 450)
-        .padding()
+        .padding(.horizontal, .padding(.extraLarge))
         .onAppear { setupData() }
         .onChange(of: scenePhase) { requestAuthentication() }
         .refdsToast(item: $authenticator.error)
@@ -84,7 +88,7 @@ public struct RefdsRequestBiometryView: View {
             .padding(5)
             .background()
             .clipShape(.circle)
-            .padding(.bottom, -20)
+            .padding(.bottom, -15)
         }
     }
     
