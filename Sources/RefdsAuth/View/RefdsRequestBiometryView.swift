@@ -51,6 +51,7 @@ public struct RefdsRequestBiometryView: View {
         .padding(.horizontal, .padding(.extraLarge))
         .onAppear { setupData() }
         .onChange(of: scenePhase) { requestAuthentication() }
+        .onChange(of: isAutomaticRequestState) { requestAuthentication() }
         .refdsToast(item: $authenticator.error)
     }
     
