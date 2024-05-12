@@ -24,7 +24,7 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
                 maxHeight: .infinity
             )
             .overlay { requestBiometryView }
-            .onChange(of: isAuthenticated) { updateAthenticationState() }
+            .onChange(of: scenePhase) { updateAthenticationState() }
     }
     
     private var requestBiometryView: some View {
