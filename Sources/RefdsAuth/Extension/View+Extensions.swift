@@ -7,7 +7,7 @@ public extension View {
     ) -> some View {
         self.modifier(
             RefdsRequestBiometryViewModifier(
-                authenticated: autheticated,
+                isAuthenticated: autheticated,
                 isAutomaticRequest: isAutomaticRequest
             )
         )
