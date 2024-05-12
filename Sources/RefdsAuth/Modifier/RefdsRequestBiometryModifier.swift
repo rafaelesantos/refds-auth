@@ -2,6 +2,7 @@ import SwiftUI
 import RefdsShared
 
 public struct RefdsRequestBiometryViewModifier: ViewModifier {
+    @Environment(\.scenePhase) private var scenePhase
     @Binding private var isAuthenticated: Bool
     private var isAutomaticRequest: Bool
     private let applicationIcon: Image
@@ -23,6 +24,7 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
                 maxHeight: .infinity
             )
             .overlay { requestBiometryView }
+            .onChange(of: isAuthenticated) { updateAthenticationState() }
     }
     
     private var requestBiometryView: some View {
@@ -40,5 +42,15 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
             .spring(),
             value: isAuthenticated
         )
+    }
+    
+    private func updateAthenticationState() {
+        switch scenePhase {
+        case .active: break
+        default:
+            withAnimation {
+                isAuthenticated = false
+            }
+        }
     }
 }
