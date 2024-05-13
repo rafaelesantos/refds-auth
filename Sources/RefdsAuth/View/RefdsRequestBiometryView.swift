@@ -67,6 +67,7 @@ public struct RefdsRequestBiometryView: View {
             if isAutomaticRequestState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     authenticate()
+                    isAutomaticRequestState = false
                 }
             }
         default: break
