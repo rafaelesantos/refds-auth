@@ -48,8 +48,10 @@ public struct RefdsRequestBiometryViewModifier: ViewModifier {
         switch scenePhase {
         case .active: break
         default:
-            withAnimation {
-                isAuthenticated = false
+            DispatchQueue.main.async {
+                withAnimation {
+                    isAuthenticated = false
+                }
             }
         }
     }
