@@ -20,11 +20,15 @@ public final class RefdsAuth: ObservableObject {
                 .deviceOwnerAuthenticationWithBiometrics,
                 localizedReason: reason
             ) { success, _ in
-                guard success else { return self.error = .authenticationFailed }
+                guard success else { return DispatchQueue.main.async {
+                    self.error = .authenticationFailed
+                } }
                 completion()
             }
         } else {
-            self.error = .noBiometrics
+            DispatchQueue.main.async {
+                self.error = .noBiometrics
+            }
         }
     }
 }
