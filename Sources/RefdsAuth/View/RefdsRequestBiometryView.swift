@@ -47,7 +47,6 @@ public struct RefdsRequestBiometryView: View {
             }
             .padding()
         }
-        .frame(maxWidth: 450)
         .padding(.horizontal, .padding(.extraLarge))
         .onAppear { setupData() }
         .onChange(of: scenePhase) { requestAuthentication() }
