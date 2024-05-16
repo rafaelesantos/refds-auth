@@ -28,7 +28,7 @@ public struct RefdsRequestBiometryView: View {
             authIcon.padding()
             
             VStack(spacing: .padding(.small)) {
-                RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title, weight: .bold, design: .rounded)
+                RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title, weight: .bold)
                 
                 RefdsText(.refdsLocalizable(by: .lockScreenDescription), color: .secondary, alignment: .center)
             }
