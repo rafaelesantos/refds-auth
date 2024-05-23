@@ -79,7 +79,7 @@ public struct RefdsRequestBiometryView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80)
-                .clipShape(.rect(cornerRadius: 15))
+                .clipShape(.rect(cornerRadius: 13.98))
             
             RefdsIcon(
                 .lockFill,
