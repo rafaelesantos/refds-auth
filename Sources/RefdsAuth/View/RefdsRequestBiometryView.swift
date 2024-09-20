@@ -27,12 +27,12 @@ public struct RefdsRequestBiometryView: View {
             
             authIcon.padding()
             
-            VStack(spacing: .padding(.small)) {
+            VStack(spacing: .small) {
                 RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title, weight: .bold)
                 
                 RefdsText(.refdsLocalizable(by: .lockScreenDescription), color: .secondary, alignment: .center)
             }
-            .padding(.horizontal, .padding(.extraLarge))
+            .padding(.horizontal, .extraLarge)
             
             Spacer()
             
@@ -47,7 +47,7 @@ public struct RefdsRequestBiometryView: View {
             }
             .padding()
         }
-        .padding(.horizontal, .padding(.extraLarge))
+        .padding(.horizontal, .extraLarge)
         .onAppear { setupData() }
         .onChange(of: scenePhase) { requestAuthentication() }
         .onChange(of: isAutomaticRequestState) { requestAuthentication() }
