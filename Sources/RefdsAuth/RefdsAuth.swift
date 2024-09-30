@@ -7,6 +7,7 @@ public final class RefdsAuth: ObservableObject {
     
     public init() {}
     
+    @MainActor
     func requestAuthentication(completion: @escaping () -> Void) {
         let context = LAContext()
         var error: NSError?
