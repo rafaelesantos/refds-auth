@@ -2,13 +2,13 @@ import SwiftUI
 import RefdsShared
 import LocalAuthentication
 
-public final class RefdsAuth: ObservableObject {
+@MainActor
+public class RefdsAuth: ObservableObject {
     @Published public var error: RefdsAuthError?
     
     public init() {}
     
-    @MainActor
-    func requestAuthentication(completion: @escaping () -> Void) {
+    func requestAuthentication() async -> Bool {
         let context = LAContext()
         var error: NSError?
         
@@ -17,17 +17,20 @@ public final class RefdsAuth: ObservableObject {
             error: &error
         ) {
             let reason: String = .refdsLocalizable(by: .lockScreenRequestAuthReason)
-            context.evaluatePolicy(
-                .deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: reason
-            ) { success, _ in
-                DispatchQueue.main.async {
-                    guard success else { return self.error = .authenticationFailed }
-                    completion()
-                }
+
+            do {
+                let _ = try await context.evaluatePolicy(
+                    .deviceOwnerAuthenticationWithBiometrics,
+                    localizedReason: reason
+                )
+                return true
+            } catch {
+                self.error = .authenticationFailed
             }
         } else {
-            DispatchQueue.main.async { self.error = .noBiometrics }
+            self.error = .noBiometrics
         }
+        
+        return false
     }
 }

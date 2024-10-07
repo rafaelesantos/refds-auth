@@ -28,9 +28,17 @@ public struct RefdsRequestBiometryView: View {
             authIcon.padding()
             
             VStack(spacing: .small) {
-                RefdsText(.refdsLocalizable(by: .lockScreenTitle), style: .title, weight: .bold)
+                RefdsText(
+                    .refdsLocalizable(by: .lockScreenTitle),
+                    style: .title,
+                    weight: .bold
+                )
                 
-                RefdsText(.refdsLocalizable(by: .lockScreenDescription), color: .secondary, alignment: .center)
+                RefdsText(
+                    .refdsLocalizable(by: .lockScreenDescription),
+                    color: .secondary,
+                    alignment: .center
+                )
             }
             .padding(.horizontal, .extraLarge)
             
@@ -43,7 +51,9 @@ public struct RefdsRequestBiometryView: View {
                 hasLargeSize: true,
                 isDisable: false
             ) {
-                authenticate()
+                Task {
+                    await authenticate()
+                }
             }
             .padding()
         }
@@ -65,8 +75,10 @@ public struct RefdsRequestBiometryView: View {
         case .active:
             if isAutomaticRequestState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    authenticate()
-                    isAutomaticRequestState = false
+                    Task {
+                        await authenticate()
+                        isAutomaticRequestState = false
+                    }
                 }
             }
         default: break
@@ -92,12 +104,9 @@ public struct RefdsRequestBiometryView: View {
         }
     }
     
-    private func authenticate() {
-        authenticator.requestAuthentication {
-            withAnimation {
-                self.isAuthenticated = true
-            }
-        }
+    private func authenticate() async {
+        let isAuthenticated = await authenticator.requestAuthentication()
+        withAnimation { self.isAuthenticated = isAuthenticated }
     }
 }
 
